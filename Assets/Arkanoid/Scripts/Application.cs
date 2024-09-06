@@ -7,6 +7,9 @@ namespace Arkanoid.Scripts
         [SerializeField] 
         private PrefabsProvider prefabsProvider;
 
+        [SerializeField] 
+        private SimpleTileGridGenerator simpleTileGridGenerator;
+
         [SerializeField]
         private Transform levelParent;
 
@@ -32,7 +35,14 @@ namespace Arkanoid.Scripts
             movablePlatformCreator = new MovablePlatformCreator(prefabsProvider.GetMovablePlatform());
             ballCreator = new BallCreator(prefabsProvider.GetBall());
 
-            gameManager.Initialize(levelParent, platformSpawnPosition.position, inputHandler, ballCreator, movablePlatformCreator);
+            gameManager.Initialize(
+                levelParent,
+                simpleTileGridGenerator,
+                platformSpawnPosition.position, 
+                inputHandler, 
+                ballCreator, 
+                movablePlatformCreator
+            );
         }
 
         private void Update() {

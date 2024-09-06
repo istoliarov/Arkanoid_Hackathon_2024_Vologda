@@ -236,6 +236,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 5947871464374333895}
-  moveVelocity: 20
-  throwUpForce: 100
-  throwSideForce: 100
+  moveVelocity: 25

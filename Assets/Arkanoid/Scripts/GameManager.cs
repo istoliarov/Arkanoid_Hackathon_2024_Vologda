@@ -8,11 +8,14 @@ namespace Arkanoid.Scripts {
 
         public void Initialize(
             Transform level,
+            ITilesLevelGenerator tilesLevelGenerator,
             Vector3 platformSpawnPosition,
             InputHandler inputHandler,
             IObjectCreator<Ball> ballCreator,
             IObjectCreator<MovablePlatform> platformCreator
         ) {
+            tilesLevelGenerator.Generate();
+            
             ball = ballCreator.Create(level, platformSpawnPosition);
             platform = platformCreator.Create(level, platformSpawnPosition);
 

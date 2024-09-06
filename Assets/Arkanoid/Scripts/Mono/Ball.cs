@@ -26,10 +26,8 @@ namespace Arkanoid.Scripts.Mono {
         }
 
         private void Bounce(Vector2 collision2DNormal) {
-            var velocity = body.velocity;
-            var speed = body.velocity.magnitude;
-            var direction = Vector3.Reflect(velocity.normalized, collision2DNormal);
-            body.velocity = direction * Mathf.Max(speed, startVelocity.y);
+            var direction = Vector3.Reflect(body.velocity.normalized, collision2DNormal);
+            body.velocity = direction * startVelocity;
         }
     }
 }
