@@ -1,5 +1,8 @@
 # Arkanoid_Hackathon_2024_Vologda
 
+ХАКАТОН СИНЕУС 2024
+https://codenrock.com/contests/sineys2024#/
+
 Жанр: Arkanoid
 Arkanoid - игра, изначально разработанная в 1986 году для игровых автоматов.
 
