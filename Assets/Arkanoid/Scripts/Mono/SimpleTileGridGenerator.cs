@@ -1,7 +1,11 @@
 using UnityEngine;
 
 namespace Arkanoid.Scripts.Mono {
-    public class SimpleTileGridGenerator : MonoBehaviour, ITilesLevelGenerator {
+    public class SimpleTileGridGeneratorReport {
+        public int GeneratedTiles;
+    }
+
+    public class SimpleTileGridGenerator : MonoBehaviour, ITilesLevelGenerator<SimpleTileGridGeneratorReport> {
         [SerializeField]
         private Transform parent;
 
@@ -9,13 +13,21 @@ namespace Arkanoid.Scripts.Mono {
         private GameObject[] tilePrefabs;
 
         [SerializeField] 
-        private int widthPerTile;
-        
-        [SerializeField] 
-        private int heightPerTile;
+        private int minWidthPerTile;
 
-        public void Generate() {
-            int halfWidthPerTileType = widthPerTile / 2;
+        [SerializeField] 
+        private int maxWidthPerTile;
+
+        [SerializeField] 
+        private int minHeightPerTile;
+
+        [SerializeField] 
+        private int maxHeightPerTile;
+
+        public SimpleTileGridGeneratorReport Generate() {
+            var widthPerTile = Random.Range(minWidthPerTile, maxWidthPerTile);
+            var heightPerTile = Random.Range(minHeightPerTile, maxHeightPerTile);
+            var halfWidthPerTileType = widthPerTile / 2;
             const int tileSizeStep = 1;
 
             for (var i = 0; i < tilePrefabs.Length; i++) {
@@ -28,6 +40,10 @@ namespace Arkanoid.Scripts.Mono {
                     }
                 }
             }
+
+            return new SimpleTileGridGeneratorReport() {
+                GeneratedTiles = tilePrefabs.Length * heightPerTile * widthPerTile,
+            };
         }
     }
 }

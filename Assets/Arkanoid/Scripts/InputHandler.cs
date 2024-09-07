@@ -4,6 +4,8 @@ using UnityEngine;
 namespace Arkanoid.Scripts
 {
     public class InputHandler {
+        private bool isLocked;
+        
         private Action onLeftAndRightReleased;
         private Action onLeftButtonPressed;
         private Action onRightButtonPressed;
@@ -33,6 +35,10 @@ namespace Arkanoid.Scripts
         }
 
         public void Update() {
+            if (isLocked) {
+                return;
+            }
+
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
                 onLeftButtonPressed?.Invoke();
             } else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
@@ -43,6 +49,14 @@ namespace Arkanoid.Scripts
             if (Input.GetKeyDown(KeyCode.Space)) {
                 onThrowBallButtonPressed?.Invoke();
             }
+        }
+
+        public void LockInput() {
+            isLocked = true;
+        }
+
+        public void UnlockInput() {
+            isLocked = false;
         }
     }
 }

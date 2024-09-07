@@ -1,5 +1,5 @@
 namespace Arkanoid.Scripts {
-    public interface ITilesLevelGenerator {
-        void Generate();
+    public interface ITilesLevelGenerator<T> {
+        T Generate();
     }
 }

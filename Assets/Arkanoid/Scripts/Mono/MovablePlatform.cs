@@ -15,6 +15,8 @@ namespace Arkanoid.Scripts.Mono
 
         private Ball catchedBall;
         private Transform ballParentBeforeCatch;
+        
+        private SizeController sizeController;
 
         public enum MoveDirection {
             None,
@@ -25,6 +27,10 @@ namespace Arkanoid.Scripts.Mono
         public void Initialize() {
             leftMoveVelocity = new Vector2(-moveVelocity, 0);
             rightMoveVelocity = new Vector2(moveVelocity, 0);
+
+            sizeController = new SizeController(1.0f, 0.25f, 0.025f, () => {
+                transform.localScale = new Vector3(sizeController.CurrentSize, transform.localScale.y, transform.localScale.z);
+            });
         }
 
         public void Move(MoveDirection direction) {
@@ -40,8 +46,9 @@ namespace Arkanoid.Scripts.Mono
                 return;
             }
             catchedBall = ball;
-            ball.transform.position = transform.position + new Vector3(0, 1, 0);
-            ball.transform.SetParent(transform, true);
+            catchedBall.Deactivate();
+            catchedBall.transform.position = transform.position + new Vector3(0, 1, 0);
+            catchedBall.transform.SetParent(transform, true);
         }
 
         public void ThrowBall() {
@@ -51,6 +58,13 @@ namespace Arkanoid.Scripts.Mono
             catchedBall.transform.SetParent(ballParentBeforeCatch, true);
             catchedBall.Activate();
             catchedBall = null;
+        }
+
+        private void OnCollisionEnter2D(Collision2D other) {
+            var ball = other.gameObject.GetComponent<Ball>();
+            if (ball != null) {
+                sizeController.DecreaseSize();
+            }
         }
     }
 }

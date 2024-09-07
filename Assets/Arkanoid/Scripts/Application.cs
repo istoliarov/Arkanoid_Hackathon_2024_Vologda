@@ -5,6 +5,9 @@ namespace Arkanoid.Scripts
 {
     public class Application : MonoBehaviour {
         [SerializeField] 
+        private UIManager uiManager;
+
+        [SerializeField] 
         private PrefabsProvider prefabsProvider;
 
         [SerializeField] 
@@ -15,6 +18,9 @@ namespace Arkanoid.Scripts
 
         [SerializeField] 
         private Transform platformSpawnPosition;
+
+        [SerializeField]
+        private ObjectHandler bottomHandler;
 
         private GameManager gameManager;
         private InputHandler inputHandler;
@@ -35,8 +41,11 @@ namespace Arkanoid.Scripts
             movablePlatformCreator = new MovablePlatformCreator(prefabsProvider.GetMovablePlatform());
             ballCreator = new BallCreator(prefabsProvider.GetBall());
 
+            uiManager.Initialize();
             gameManager.Initialize(
                 levelParent,
+                uiManager,
+                bottomHandler,
                 simpleTileGridGenerator,
                 platformSpawnPosition.position, 
                 inputHandler, 
