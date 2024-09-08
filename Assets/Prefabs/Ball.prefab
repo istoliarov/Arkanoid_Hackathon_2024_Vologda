@@ -226,4 +226,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 3477618201701644512}
-  startVelocity: {x: 15, y: 20}
+  startVelocity: {x: 10, y: 20}
