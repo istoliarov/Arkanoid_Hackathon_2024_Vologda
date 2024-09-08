@@ -28,6 +28,7 @@ namespace Arkanoid.Scripts.Mono {
             var widthPerTile = Random.Range(minWidthPerTile, maxWidthPerTile);
             var heightPerTile = Random.Range(minHeightPerTile, maxHeightPerTile);
             var halfWidthPerTileType = widthPerTile / 2;
+            var gapBetweenTile = 0.5f;
             const int tileSizeStep = 1;
 
             for (var i = 0; i < tilePrefabs.Length; i++) {

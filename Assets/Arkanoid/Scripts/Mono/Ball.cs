@@ -20,19 +20,23 @@ namespace Arkanoid.Scripts.Mono {
         }
 
         public void Activate() {
+            body.isKinematic = false;
+            body.bodyType = RigidbodyType2D.Dynamic;
+
             var direction = Random.Range(0.0f, 1.0f) > 0.5f ? -1 : 1;
             body.velocity = new Vector2(direction * startVelocity.x, startVelocity.y);
             isActivated = true;
         }
 
         public void Deactivate() {
+            body.isKinematic = true;
+            body.bodyType = RigidbodyType2D.Kinematic;
+
             body.velocity = Vector3.zero;
             isActivated = false;
         }
 
         private void OnCollisionEnter2D(Collision2D collision) {
-            Bounce(collision.contacts[0].normal);
-
             var hittable = collision.gameObject.GetComponent<Hittable>();
             if (hittable != null && !hittable.Hitted) {
                 hittable.Hit();
@@ -40,9 +44,11 @@ namespace Arkanoid.Scripts.Mono {
             }
         }
 
-        private void Bounce(Vector2 collision2DNormal) {
-            var direction = Vector3.Reflect(body.velocity.normalized, collision2DNormal);
-            body.velocity = direction * startVelocity;
+        private void OnCollisionExit2D(Collision2D _) {
+            body.velocity = new Vector2(
+                startVelocity.x * Math.Sign(body.velocity.x),
+                startVelocity.y * Math.Sign(body.velocity.y)
+            );
         }
     }
 }
